@@ -1,8 +1,7 @@
 ﻿[console]::InputEncoding = [console]::OutputEncoding = [System.Text.Encoding]::UTF8
 
-# URLs dos módulos no GitHub (Links Raw)
-$UrlModuloBateria = "https://raw.githubusercontent.com/edmilsons2025/diagtools/refs/heads/main/modulo_bateria.ps1"
-# $UrlModuloTestes = "https://..."
+# URL corrigida para o link RAW do GitHub
+$UrlModuloBateria = "https://raw.githubusercontent.com/edmilsons2025/diagtools/main/modulo_bateria.ps1"
 
 function Show-Menu {
     Clear-Host
@@ -17,15 +16,16 @@ function Show-Menu {
 
 do {
     Show-Menu
-    
     $opcao = Read-Host "Selecione uma opção"
 
     switch ($opcao) {
         '1' { 
             Write-Host "Carregando módulo de Bateria da nuvem..." -ForegroundColor Gray
             
+            # Baixa e injeta na memória
             Invoke-RestMethod -Uri $UrlModuloBateria | Invoke-Expression
             
+            # Nome da função corrigido com os hifens
             ExecutarColetaCompleta
         }
         '2' { Write-Host "Módulo em breve..."; Start-Sleep 2 }
