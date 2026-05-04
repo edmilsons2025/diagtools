@@ -1,7 +1,7 @@
 ﻿[console]::InputEncoding = [console]::OutputEncoding = [System.Text.Encoding]::UTF8
 
 # URLs dos módulos no GitHub (Links Raw)
-$UrlModuloBateria = "https://gist.githubusercontent.com/.../raw/modulo_bateria.ps1"
+$UrlModuloBateria = "https://raw.githubusercontent.com/edmilsons2025/diagtools/refs/heads/main/modulo_bateria.ps1"
 # $UrlModuloTestes = "https://..."
 
 function Show-Menu {
@@ -17,13 +17,15 @@ function Show-Menu {
 
 do {
     Show-Menu
-    $input = Read-Host "Selecione uma opção"
+    
+    $opcao = Read-Host "Selecione uma opção"
 
-    switch ($input) {
+    switch ($opcao) {
         '1' { 
-            Write-Host "Carregando módulo local de Bateria..." -ForegroundColor Gray
-            $CaminhoModulo = Join-Path -Path $PSScriptRoot -ChildPath "modulo_bateria.ps1"
-            . $CaminhoModulo
+            Write-Host "Carregando módulo de Bateria da nuvem..." -ForegroundColor Gray
+            
+            Invoke-RestMethod -Uri $UrlModuloBateria | Invoke-Expression
+            
             ExecutarColetaCompleta
         }
         '2' { Write-Host "Módulo em breve..."; Start-Sleep 2 }

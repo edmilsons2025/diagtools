@@ -143,7 +143,7 @@
         [System.IO.File]::AppendAllText($MD, $Block, [System.Text.Encoding]::UTF8)
     }
 
-    function Parse-BatteryReport {
+    function ParseBatteryReport {
         param([string]$ReportPath)
         if (-not (Test-Path $ReportPath)) { return $null }
 
@@ -281,7 +281,7 @@
     $batteryStatus = Get-WmiObject -Class BatteryStatus -Namespace root\wmi -ErrorAction SilentlyContinue
     $batteryStatic = Get-WmiObject -Class BatteryStaticData -Namespace root\wmi -ErrorAction SilentlyContinue
 
-    $parsedReport = Parse-BatteryReport -ReportPath "$TempFolder\battery-report_$SN.html"
+    $parsedReport = ParseBatteryReport -ReportPath "$TempFolder\battery-report_$SN.html"
     if ($parsedReport) {
         Add-StructuredData -Title 'Inteligência do Relatório HTML (BMS)' -Data $parsedReport -KeyProperties @('Fabricante', 'Modelo', 'DesignCapacity', 'FullChargeCapacity', 'CapacidadeInicialHistorico', 'CycleCount', 'HealthPercentage', 'FalsosPositivosBMS', 'AlertaDegradacao')
     }
